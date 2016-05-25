@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style>
+	.btn {
+		border: none;
+	    background: #5EBA7D;
+	    color: #fff;
+	    padding: 10px 15px;
+	    font-size: 1rem;
+	    border-radius: 2px;
+	    display:inline-block;
+	    cursor:pointer;
+	}
+	</style>
+	<script src="../js/build/MIDI.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+	let program = 0;	
+	
+	MIDI.loadPlugin({
+		soundfontUrl: "soundfont/",
+		instruments: [ "acoustic_grand_piano", "xylophone" , "acoustic_bass"],
+		onsuccess: function() {
+
+			// Set MIDI Instrument Program Numbers
+			MIDI.programChange(0, 0); // set channel 0 to piano
+        	MIDI.programChange(1, 13); // set channel 1 to xylophone
+        	MIDI.programChange(2, 32); // set channel 2 to acoustic bass
+		}
+	});
+	function playSound(num) {
+		let delay = 0; // play one note every quarter second
+		let note = num; // the MIDI note
+		let velocity = 127; // how hard the note hits
+
+		MIDI.setVolume(0, 127);
+		MIDI.noteOn(program, note, velocity, delay);
+		MIDI.noteOff(program, note, delay + 1 );
+
+	}
+	function changeProgram(num) {
+		program = num
+	}
+	function getRandomNum(min,max) {
+		// Return random number between range
+  		return Math.floor(Math.random() * (max - min) + min);
+	}
+	document.onkeydown = function(e)  {
+    	e = e || window.event;
+    	let key = e.keyCode;
+    	let note = 100;
+    	
+    	// If key equals space bar play random note
+    	if(key == 32) {
+    		note = getRandomNum(20, 100);
+    		playSound(note);	
+    	}
+	}
+</script>
+
+<div onclick="changeProgram(0)" class = "btn">Piano</div>
+<div onclick="changeProgram(1)" class = "btn">Xylophone</div>
+<div onclick="changeProgram(2)" class = "btn">Bass</button>
+</body>
+</html>

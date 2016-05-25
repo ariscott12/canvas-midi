@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">	
+	<script src="../js/build/MIDI.js"></script>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="500" style="border:solid 1px #000000;"></canvas>
+	<button onclick="drawRect();return true;">Draw Square</button> 
+	
+	<script>
+
+	const c1 = document.getElementById("canvas");
+	const mainContext = c1.getContext("2d");
+	const width = 50;
+	const canvasSize = 500;
+
+	let xPos = 0;
+	let yPos = 0;
+	let speed = 5;
+	let direction = 1;
+
+	// Set canvas width and height
+	mainContext.canvas.width  = canvasSize;
+  	mainContext.canvas.height = canvasSize;
+
+	// Load SoundFonts
+	MIDI.loadPlugin({
+		soundfontUrl: "./soundfont/",
+		instruments: [ "acoustic_grand_piano"],
+		onsuccess: () => {
+			// Set MIDI Instrument Program Numbers
+			MIDI.programChange(0, 0); // set channel 0 to piano
+		}
+	});
+
+	// Generate a random number
+	function getRandomNum(min, max) {
+  		return Math.floor(Math.random() * (max - min) + min);
+	}
+
+	// Play a random note when function is called
+	function playNote() {
+		let delay = 0; 
+		let note = getRandomNum(20,100); 
+		let velocity = 40; 
+
+		MIDI.setVolume(0, 100);
+		MIDI.noteOn(0, note, velocity, delay);
+		MIDI.noteOff(0, note, delay + 1 );
+	}
+
+	// Draw rectangle and clear canvas element
+	function drawRect() {
+	   // Clear the canvas	
+	   mainContext.clearRect(0, 0, canvasSize, canvasSize);
+	   mainContext.fillStyle = "#f00";
+	   mainContext.fillRect(xPos, yPos, width, width);
+
+	   xPos+= speed * direction;
+	  // yPos+= speed * direction;
+
+	   if(xPos === canvasSize - width || xPos === 0 ) {
+	   	  direction = direction * -1;
+	   	  playNote();
+	   }
+	   
+	   requestAnimationFrame(drawRect);
+	}
+	</script>
+	
+</body>
+</html>
+

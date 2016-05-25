@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">	
+</head>
+<body>
+	<canvas id="canvas" width = "500" height = "500" style="border:solid 1px #000000;"></canvas>
+	<button onclick="drawRect();return true;">Draw Square</button> 
+	
+	<script>
+
+	const c1 = document.getElementById("canvas"); // target canvas element
+	const mainContext = c1.getContext("2d"); //returns an object that provides methods and properties for drawing on <canvas>
+	
+	function drawRect() {
+	  	   
+	   // Draw the rectangle
+	   mainContext.fillStyle = "#f00";
+	   mainContext.fillRect(20, 20, 100, 100);
+
+	}
+	</script>
+	
+</body>
+</html>
+

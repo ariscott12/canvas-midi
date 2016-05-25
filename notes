@@ -1,0 +1,11 @@
+MIDI Notes
+-MIDI, at its core, describes methods to select an instrument and play a note at a certain volume for a given length of time.
+-MIDI itself does not make sound, it is just a series of messages like "note on," "note off," "note/pitch," "pitchbend," and many more.
+-The MIDI.js project unites a number of libraries to reproduce the MIDI standard using JavaScript in a way that works on most browsers
+-To understand how MIDI.js generates the tone you need to understand SoundFonts (.sf2), a file format containing note samples for one or more instruments.
+
+Canvas Notes
+-The canvas element is an element defined in HTML code using width and height attributes. The real power of the canvas element, however, is accomplished by taking advantage 
+of the HTML5 Canvas API. This API is used by writing JavaScript that can access the canvas area through a full set of drawing functions, thus allowing for dynamically generated graphics.
+
+-The canvas element is an element defined in HTML code using width and height attributes. The real power of the canvas element, however, is accomplished by taking advantage of the HTML5 Canvas API. This API is used by writing JavaScript that can access the canvas area through a full set of drawing functions, thus allowing for dynamically generated graphics.

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<script src="../js/build/MIDI.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+
+	MIDI.loadPlugin({
+		soundfontUrl: "soundfont/",
+		instruments: [ "acoustic_grand_piano", "xylophone" , "acoustic_bass"],
+		onsuccess: function() {
+			let delay = 0; 
+			let note = 60; // the MIDI note
+			let velocity = 120; // how hard the note hits
+
+			// Set MIDI Instrument Program Number
+			MIDI.programChange(0, 0);  
+			MIDI.programChange(1, 13);  
+			MIDI.programChange(2, 32);  
+			
+			// Set the note volume 
+			MIDI.setVolume(1, 120);
+
+			// Play the MIDI note
+			MIDI.noteOn(1, note, velocity, delay);
+
+			// End the MIDI note
+			MIDI.noteOff(1, note, delay + 2);
+		}
+	});
+
+</script>
+
+</body>
+</html>
